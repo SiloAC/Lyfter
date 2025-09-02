@@ -1,7 +1,4 @@
-students = []
-
-def get_students():
-    return students
+# students = []
 
 def input_grade(subject):
     while True:
@@ -14,7 +11,7 @@ def input_grade(subject):
         except ValueError:
             print("Please enter a valid number.")
 
-def add_students():
+def add_students(students):
     try:
         n = int(input("How many students do you want to add? "))
     except ValueError:
@@ -38,7 +35,7 @@ def add_students():
         students.append(student)
         print(f"Student '{name}' added successfully.")
 
-def show_students():
+def show_students(students):
     if not students:
         print("No students registered.")
         return
@@ -51,7 +48,7 @@ def show_students():
 def student_average(s):
     return (s['spanish'] + s['english'] + s['social'] + s['science']) / 4
 
-def show_top_3():
+def show_top_3(students):
     if not students:
         print("No students registered.")
         return
@@ -80,7 +77,7 @@ def show_top_3():
     for i, (s, avg) in enumerate(top_3, start=1):
         print(f"{i}. {s['name']} - Average: {avg:.2f}")
 
-def show_average():
+def show_average(students):
     if not students:
         print("No students registered.")
         return
