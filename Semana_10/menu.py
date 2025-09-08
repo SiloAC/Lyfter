@@ -2,7 +2,7 @@ from actions import add_students, show_students, show_top_3, show_average
 from data import export_to_csv, import_from_csv
 
 def show_menu():
-    students = import_from_csv()
+    students = []
     while True:
         print("\n=== Student Menu ===")
         print("1. Enter student info")
