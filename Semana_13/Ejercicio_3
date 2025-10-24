@@ -1,0 +1,44 @@
+from datetime import date
+
+
+class User:
+    def __init__(self, date_of_birth: date):
+        self.date_of_birth = date_of_birth
+
+    @property
+    def age(self):
+        today = date.today()
+        return (
+            today.year
+            - self.date_of_birth.year
+            - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        )
+
+
+def adult_only(func):
+    def wrapper(user, *args, **kwargs):
+        try:
+            # Try to access the expected attributes directly
+            _ = user.date_of_birth
+            user_age = user.age
+        except AttributeError:
+            raise TypeError("The first argument must behave like a User (have date_of_birth and age).")
+
+        if user_age < 18:
+            raise PermissionError("User must be an adult (18+).")
+
+        return func(user, *args, **kwargs)
+    return wrapper
+
+
+@adult_only
+def access_restricted_area(user):
+    return f"Access granted to user aged {user.age}."
+
+
+if __name__ == "__main__":
+    adult = User(date(1990, 5, 10))
+    minor = User(date(2010, 8, 22))
+
+    print(access_restricted_area(adult))
+    # print(access_restricted_area(minor))  # Raises PermissionError
